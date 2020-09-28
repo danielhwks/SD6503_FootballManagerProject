@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace FootballStatisticsManagementApp
 {
+    //Qiang
     public class Startup
     {
         public Startup(IConfiguration configuration)
