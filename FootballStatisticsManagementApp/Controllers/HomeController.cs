@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using FootballStatisticsManagementApp.Models;
+using FootballStatisticsManagementApp.Utilities;
 
 namespace FootballStatisticsManagementApp.Controllers
 {
@@ -12,11 +13,21 @@ namespace FootballStatisticsManagementApp.Controllers
     {
         public IActionResult Index()
         {
+            if (!LoginUtility.CheckAuthenticated(HttpContext.Session))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             return View();
         }
 
         public IActionResult About()
         {
+            if (!LoginUtility.CheckAuthenticated(HttpContext.Session))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             ViewData["Message"] = "Your application description page.";
 
             return View();
@@ -24,6 +35,11 @@ namespace FootballStatisticsManagementApp.Controllers
 
         public IActionResult Contact()
         {
+            if (!LoginUtility.CheckAuthenticated(HttpContext.Session))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             ViewData["Message"] = "Your contact page.";
 
             return View();
@@ -31,6 +47,11 @@ namespace FootballStatisticsManagementApp.Controllers
 
         public IActionResult Privacy()
         {
+            if (!LoginUtility.CheckAuthenticated(HttpContext.Session))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
             return View();
         }
 
