@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using UserLogin.Models;
+using FootballStatisticsManagementApp.Models;
 
 namespace FootballStatisticsManagementApp.Controllers
 {
@@ -17,14 +17,14 @@ namespace FootballStatisticsManagementApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Authenticate(string username, string password)
+        public IActionResult Authenticate([FromForm] UserLogin details)
         {
             // Read credentials from file
             string[] credentials = System.IO.File.ReadAllLines("cred.txt");
             var credUsername = credentials[0];
             var credPassword = credentials[1];
             Console.WriteLine(credUsername);
-            if (username == credUsername && password == credPassword)
+            if (details.username == credUsername && details.password == credPassword)
             {
                 HttpContext.Session.SetInt32("auth", 1);
             }
