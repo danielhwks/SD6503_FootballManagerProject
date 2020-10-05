@@ -1,0 +1,3 @@
+[submodule "SD6503_Project_DB"]
+	path = SD6503_Project_DB
+	url = https://github.com/danielhwks/SD6503_Project_DB
