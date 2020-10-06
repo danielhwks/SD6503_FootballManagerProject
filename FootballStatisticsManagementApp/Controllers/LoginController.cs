@@ -23,11 +23,18 @@ namespace FootballStatisticsManagementApp.Controllers
             string[] credentials = System.IO.File.ReadAllLines("cred.txt");
             var credUsername = credentials[0];
             var credPassword = credentials[1];
-            Console.WriteLine(credUsername);
             if (details.username == credUsername && details.password == credPassword)
             {
                 HttpContext.Session.SetInt32("auth", 1);
+                return RedirectToAction("Index", "Home");
             }
+            return View("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.SetInt32("auth", 0);
             return View("Index");
         }
     }
