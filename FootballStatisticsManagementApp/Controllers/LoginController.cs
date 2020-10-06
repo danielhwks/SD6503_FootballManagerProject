@@ -28,7 +28,7 @@ namespace FootballStatisticsManagementApp.Controllers
             {
                 HttpContext.Session.SetInt32("auth", 1);
             }
-            return RedirectToAction("Index", "Home");
+            return View("Index");
         }
     }
 }
