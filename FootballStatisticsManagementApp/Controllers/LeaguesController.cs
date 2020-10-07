@@ -11,9 +11,9 @@ namespace FootballStatisticsManagementApp.Controllers
 {
     public class LeaguesController : Controller
     {
-        private readonly HSD6503_PROJECTSD6503_PROJECT_DBDATABASEFSMDBMDFContext _context;
+        private readonly HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext _context;
 
-        public LeaguesController(HSD6503_PROJECTSD6503_PROJECT_DBDATABASEFSMDBMDFContext context)
+        public LeaguesController(HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext context)
         {
             _context = context;
         }
