@@ -14,7 +14,11 @@ namespace FootballStatisticsManagementApp.Models
         public string Location { get; set; }
         public string Date { get; set; }
         public int LeagueId { get; set; }
+        public int HomeTeamId { get; set; }
+        public int AwayTeamId { get; set; }
 
+        public Team AwayTeam { get; set; }
+        public Team HomeTeam { get; set; }
         public League League { get; set; }
         public ICollection<Stats> Stats { get; set; }
     }

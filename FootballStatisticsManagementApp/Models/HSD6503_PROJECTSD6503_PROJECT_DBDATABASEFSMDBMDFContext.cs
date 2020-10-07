@@ -51,6 +51,18 @@ namespace FootballStatisticsManagementApp.Models
                     .IsRequired()
                     .HasMaxLength(20);
 
+                entity.HasOne(d => d.AwayTeam)
+                    .WithMany(p => p.MatchAwayTeam)
+                    .HasForeignKey(d => d.AwayTeamId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_AwayTeamMatch");
+
+                entity.HasOne(d => d.HomeTeam)
+                    .WithMany(p => p.MatchHomeTeam)
+                    .HasForeignKey(d => d.HomeTeamId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_HomeTeamMatch");
+
                 entity.HasOne(d => d.League)
                     .WithMany(p => p.Match)
                     .HasForeignKey(d => d.LeagueId)
