@@ -8,7 +8,6 @@ namespace FootballStatisticsManagementApp.Models
         public Team()
         {
             Player = new HashSet<Player>();
-            Stats = new HashSet<Stats>();
         }
 
         public int TeamId { get; set; }
@@ -16,6 +15,5 @@ namespace FootballStatisticsManagementApp.Models
         public string Location { get; set; }
 
         public ICollection<Player> Player { get; set; }
-        public ICollection<Stats> Stats { get; set; }
     }
 }

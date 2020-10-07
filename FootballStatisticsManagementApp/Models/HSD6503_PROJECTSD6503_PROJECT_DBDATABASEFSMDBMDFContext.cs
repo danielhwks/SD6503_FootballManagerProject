@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace FootballStatisticsManagementApp.Models
 {
-    public partial class HSD6503_PROJECTSD6503_PROJECT_DBDATABASEFSMDBMDFContext : DbContext
+    public partial class HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext : DbContext
     {
-        public HSD6503_PROJECTSD6503_PROJECT_DBDATABASEFSMDBMDFContext()
+        public HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext()
         {
         }
 
-        public HSD6503_PROJECTSD6503_PROJECT_DBDATABASEFSMDBMDFContext(DbContextOptions<HSD6503_PROJECTSD6503_PROJECT_DBDATABASEFSMDBMDFContext> options)
+        public HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext(DbContextOptions<HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext> options)
             : base(options)
         {
         }
@@ -27,7 +27,7 @@ namespace FootballStatisticsManagementApp.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=H:\\SD6503_PROJECT\\SD6503_PROJECT_DB\\DATABASE\\FSMDB.MDF;Trusted_Connection=True;");
+                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=H:\\SD6503_Project\\SD6503_Project_DB\\Database\\FSMDB.mdf;Trusted_Connection=True;");
             }
         }
         */
@@ -56,12 +56,6 @@ namespace FootballStatisticsManagementApp.Models
                     .HasForeignKey(d => d.LeagueId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_LeagueMatch");
-
-                entity.HasOne(d => d.Stats)
-                    .WithMany(p => p.Match)
-                    .HasForeignKey(d => d.StatsId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_StatsMatch");
             });
 
             modelBuilder.Entity<Player>(entity =>
@@ -84,8 +78,8 @@ namespace FootballStatisticsManagementApp.Models
 
             modelBuilder.Entity<Stats>(entity =>
             {
-                entity.HasOne(d => d.MatchNavigation)
-                    .WithMany(p => p.StatsNavigation)
+                entity.HasOne(d => d.Match)
+                    .WithMany(p => p.Stats)
                     .HasForeignKey(d => d.MatchId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_MatchStats");
@@ -95,12 +89,6 @@ namespace FootballStatisticsManagementApp.Models
                     .HasForeignKey(d => d.PlayerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_PlayerStats");
-
-                entity.HasOne(d => d.Team)
-                    .WithMany(p => p.Stats)
-                    .HasForeignKey(d => d.TeamId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_TeamStats");
             });
 
             modelBuilder.Entity<Team>(entity =>
