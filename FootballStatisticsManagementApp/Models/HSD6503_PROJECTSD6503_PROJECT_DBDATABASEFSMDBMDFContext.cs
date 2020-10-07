@@ -21,6 +21,7 @@ namespace FootballStatisticsManagementApp.Models
         public virtual DbSet<Stats> Stats { get; set; }
         public virtual DbSet<Team> Team { get; set; }
 
+        /*
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -29,6 +30,7 @@ namespace FootballStatisticsManagementApp.Models
                 optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=H:\\SD6503_PROJECT\\SD6503_PROJECT_DB\\DATABASE\\FSMDB.MDF;Trusted_Connection=True;");
             }
         }
+        */
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

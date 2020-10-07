@@ -9,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
+using FootballStatisticsManagementApp.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace FootballStatisticsManagementApp
 {
     //Qiang
@@ -41,6 +44,9 @@ namespace FootballStatisticsManagementApp
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            var connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=H:\SD6503_Project\SD6503_Project_DB\Database\FSMDB.mdf;Integrated Security=True;Connect Timeout=30";
+            services.AddDbContext<HSD6503_PROJECTSD6503_PROJECT_DBDATABASEFSMDBMDFContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
