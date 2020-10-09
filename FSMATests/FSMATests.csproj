@@ -17,4 +17,10 @@
     <ProjectReference Include="..\FootballStatisticsManagementApp\FootballStatisticsManagementApp.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="System.Web">
+      <HintPath>System.Web</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
