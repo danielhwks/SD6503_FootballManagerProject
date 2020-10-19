@@ -14,7 +14,7 @@ namespace FootballStatisticsManagementApp.Models
         public int PlayerId { get; set; }
 
         [Required]
-        [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "Name can only include letters")]
+        [RegularExpression("^[a-zA-Z\\s]+$", ErrorMessage = "Name can only include letters")]
         public string Name { get; set; }
 
         [Required]
