@@ -15,8 +15,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FootballStatisticsManagementApp
 {
-    //Qiang
-    //Alen
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -47,7 +45,6 @@ namespace FootballStatisticsManagementApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             string path = Directory.GetParent(Directory.GetCurrentDirectory()) + @"\SD6503_Project_DB\Database\FSMDB.mdf";
-            Console.WriteLine("The current directory is {0}", path);
             var connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + path + @";Integrated Security=True;Connect Timeout=30";
             services.AddDbContext<HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext>(options => options.UseSqlServer(connection));
         }
