@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -45,7 +46,9 @@ namespace FootballStatisticsManagementApp
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            var connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=H:\SD6503_Project\SD6503_Project_DB\Database\FSMDB.mdf;Integrated Security=True;Connect Timeout=30";
+            string path = Directory.GetParent(Directory.GetCurrentDirectory()) + @"\SD6503_Project_DB\Database\FSMDB.mdf";
+            Console.WriteLine("The current directory is {0}", path);
+            var connection = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=" + path + @";Integrated Security=True;Connect Timeout=30";
             services.AddDbContext<HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext>(options => options.UseSqlServer(connection));
         }
 
