@@ -21,7 +21,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Matches
         public async Task<IActionResult> Index()
         {
-            var hSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext = _context.Match.Include(m => m.League);
+            var hSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext = _context.Match.Include(m => m.AwayTeam).Include(m => m.HomeTeam).Include(m => m.League);
             return View(await hSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext.ToListAsync());
         }
 
@@ -34,6 +34,8 @@ namespace FootballStatisticsManagementApp.Controllers
             }
 
             var match = await _context.Match
+                .Include(m => m.AwayTeam)
+                .Include(m => m.HomeTeam)
                 .Include(m => m.League)
                 .FirstOrDefaultAsync(m => m.MatchId == id);
             if (match == null)
@@ -47,6 +49,8 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Matches/Create
         public IActionResult Create()
         {
+            ViewData["AwayTeamId"] = new SelectList(_context.Team, "TeamId", "Name");
+            ViewData["HomeTeamId"] = new SelectList(_context.Team, "TeamId", "Name");
             ViewData["LeagueId"] = new SelectList(_context.League, "LeagueId", "Year");
             return View();
         }
@@ -56,7 +60,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MatchId,Location,Date,LeagueId")] Match match)
+        public async Task<IActionResult> Create([Bind("MatchId,Location,Date,LeagueId,HomeTeamId,AwayTeamId")] Match match)
         {
             if (ModelState.IsValid)
             {
@@ -64,6 +68,8 @@ namespace FootballStatisticsManagementApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AwayTeamId"] = new SelectList(_context.Team, "TeamId", "Name", match.AwayTeamId);
+            ViewData["HomeTeamId"] = new SelectList(_context.Team, "TeamId", "Name", match.HomeTeamId);
             ViewData["LeagueId"] = new SelectList(_context.League, "LeagueId", "Year", match.LeagueId);
             return View(match);
         }
@@ -81,6 +87,8 @@ namespace FootballStatisticsManagementApp.Controllers
             {
                 return NotFound();
             }
+            ViewData["AwayTeamId"] = new SelectList(_context.Team, "TeamId", "Name", match.AwayTeamId);
+            ViewData["HomeTeamId"] = new SelectList(_context.Team, "TeamId", "Name", match.HomeTeamId);
             ViewData["LeagueId"] = new SelectList(_context.League, "LeagueId", "Year", match.LeagueId);
             return View(match);
         }
@@ -90,7 +98,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MatchId,Location,Date,LeagueId")] Match match)
+        public async Task<IActionResult> Edit(int id, [Bind("MatchId,Location,Date,LeagueId,HomeTeamId,AwayTeamId")] Match match)
         {
             if (id != match.MatchId)
             {
@@ -117,6 +125,8 @@ namespace FootballStatisticsManagementApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["AwayTeamId"] = new SelectList(_context.Team, "TeamId", "Name", match.AwayTeamId);
+            ViewData["HomeTeamId"] = new SelectList(_context.Team, "TeamId", "Name", match.HomeTeamId);
             ViewData["LeagueId"] = new SelectList(_context.League, "LeagueId", "Year", match.LeagueId);
             return View(match);
         }
@@ -130,6 +140,8 @@ namespace FootballStatisticsManagementApp.Controllers
             }
 
             var match = await _context.Match
+                .Include(m => m.AwayTeam)
+                .Include(m => m.HomeTeam)
                 .Include(m => m.League)
                 .FirstOrDefaultAsync(m => m.MatchId == id);
             if (match == null)

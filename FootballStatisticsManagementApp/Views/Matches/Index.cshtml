@@ -19,6 +19,12 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.AwayTeam)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HomeTeam)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.League)
             </th>
             <th></th>
@@ -32,6 +38,12 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AwayTeam.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HomeTeam.Name)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.League.Year)

@@ -47,7 +47,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Players/Create
         public IActionResult Create()
         {
-            ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Location");
+            ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Name");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace FootballStatisticsManagementApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Location", player.TeamId);
+            ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Name", player.TeamId);
             return View(player);
         }
 
@@ -81,7 +81,7 @@ namespace FootballStatisticsManagementApp.Controllers
             {
                 return NotFound();
             }
-            ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Location", player.TeamId);
+            ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Name", player.TeamId);
             return View(player);
         }
 
@@ -117,7 +117,7 @@ namespace FootballStatisticsManagementApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Location", player.TeamId);
+            ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Name", player.TeamId);
             return View(player);
         }
 
