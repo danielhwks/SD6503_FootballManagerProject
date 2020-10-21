@@ -40,6 +40,9 @@ namespace FootballStatisticsManagementApp.Controllers
             {
                 return NotFound();
             }
+            ViewBag.goals = player.Stats.Sum(s => s.Goals);
+            ViewBag.assists = player.Stats.Sum(s => s.Assists);
+            ViewBag.saves = player.Stats.Sum(s => s.Saves);
 
             return View(player);
         }
