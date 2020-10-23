@@ -9,31 +9,22 @@ using FootballStatisticsManagementApp.Models;
 
 namespace FootballStatisticsManagementApp.Controllers
 {
-    public class PlayersController : Controller
+    public class StatsController : Controller
     {
         private readonly HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext _context;
 
-        public PlayersController(HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext context)
+        public StatsController(HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext context)
         {
             _context = context;
         }
 
-        // GET: Players
-        public async Task<IActionResult> Index(string sortParam)
+        // GET: Stats
+        public async Task<IActionResult> Index()
         {
-            var players = from p in _context.Player.Include(p => p.Team) select p;
-            switch (sortParam)
-            {
-                case "name_desc":
-                    players = players.OrderByDescending(p => p.Name);
-                    break;
-                default:
-                    break;
-            }
-            return View(await players.ToListAsync());
+            return View(await _context.Stats.ToListAsync());
         }
 
-        // GET: Players/Details/5
+        // GET: Stats/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -41,48 +32,41 @@ namespace FootballStatisticsManagementApp.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player
-                .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.PlayerId == id);
-            if (player == null)
+            var stats = await _context.Stats
+                .FirstOrDefaultAsync(m => m.StatsId == id);
+            if (stats == null)
             {
                 return NotFound();
             }
-            var _ = _context.Stats.Where(s => s.PlayerId == player.PlayerId).ToList();
-            ViewBag.goals = player.Stats.Sum(s => s.Goals);
-            //Console.WriteLine(stats.Count);
-            ViewBag.assists = player.Stats.Sum(s => s.Assists);
-            ViewBag.saves = player.Stats.Sum(s => s.Saves);
-            Console.WriteLine(ViewBag.goals);
 
-            return View(player);
+            return View(stats);
         }
 
-        // GET: Players/Create
+        // GET: Stats/Create
         public IActionResult Create()
         {
-            ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Name");
+            ViewData["MatchId"] = new SelectList(_context.Match, "MatchId", "Date");
+            ViewData["PlayerId"] = new SelectList(_context.Player, "PlayerId", "Name");
             return View();
         }
 
-        // POST: Players/Create
+        // POST: Stats/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("PlayerId,Name,Dob,KitNumber,TeamId")] Player player)
+        public async Task<IActionResult> Create([Bind("StatsId,Goals,Assists,Saves,MatchId,PlayerId")] Stats stats)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(player);
+                _context.Add(stats);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Name", player.TeamId);
-            return View(player);
+            return View(stats);
         }
 
-        // GET: Players/Edit/5
+        // GET: Stats/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -90,23 +74,24 @@ namespace FootballStatisticsManagementApp.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player.FindAsync(id);
-            if (player == null)
+            var stats = await _context.Stats.FindAsync(id);
+            if (stats == null)
             {
                 return NotFound();
             }
-            ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Name", player.TeamId);
-            return View(player);
+            ViewData["MatchId"] = new SelectList(_context.Match, "MatchId", "Date", stats.MatchId);
+            ViewData["PlayerId"] = new SelectList(_context.Player, "PlayerId", "Name", stats.PlayerId);
+            return View(stats);
         }
 
-        // POST: Players/Edit/5
+        // POST: Stats/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("PlayerId,Name,Dob,KitNumber,TeamId")] Player player)
+        public async Task<IActionResult> Edit(int id, [Bind("StatsId,Goals,Assists,Saves,MatchId,PlayerId")] Stats stats)
         {
-            if (id != player.PlayerId)
+            if (id != stats.StatsId)
             {
                 return NotFound();
             }
@@ -115,12 +100,12 @@ namespace FootballStatisticsManagementApp.Controllers
             {
                 try
                 {
-                    _context.Update(player);
+                    _context.Update(stats);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PlayerExists(player.PlayerId))
+                    if (!StatsExists(stats.StatsId))
                     {
                         return NotFound();
                     }
@@ -131,11 +116,10 @@ namespace FootballStatisticsManagementApp.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Name", player.TeamId);
-            return View(player);
+            return View(stats);
         }
 
-        // GET: Players/Delete/5
+        // GET: Stats/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -143,31 +127,30 @@ namespace FootballStatisticsManagementApp.Controllers
                 return NotFound();
             }
 
-            var player = await _context.Player
-                .Include(p => p.Team)
-                .FirstOrDefaultAsync(m => m.PlayerId == id);
-            if (player == null)
+            var stats = await _context.Stats
+                .FirstOrDefaultAsync(m => m.StatsId == id);
+            if (stats == null)
             {
                 return NotFound();
             }
 
-            return View(player);
+            return View(stats);
         }
 
-        // POST: Players/Delete/5
+        // POST: Stats/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var player = await _context.Player.FindAsync(id);
-            _context.Player.Remove(player);
+            var stats = await _context.Stats.FindAsync(id);
+            _context.Stats.Remove(stats);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PlayerExists(int id)
+        private bool StatsExists(int id)
         {
-            return _context.Player.Any(e => e.PlayerId == id);
+            return _context.Stats.Any(e => e.StatsId == id);
         }
     }
 }
