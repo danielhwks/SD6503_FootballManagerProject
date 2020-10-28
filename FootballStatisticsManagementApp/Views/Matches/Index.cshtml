@@ -13,19 +13,54 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
+                @if (ViewBag.sortBy == "loc_asc")
+                {
+                    <a href="/Matches?sortParam=loc_desc">@Html.DisplayNameFor(model => model.Location)</a>
+                }
+                else
+                {
+                    <a href="/Matches?sortParam=loc_asc">@Html.DisplayNameFor(model => model.Location)</a>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Date)
+                @if (ViewBag.sortBy == "date_asc")
+                {
+                    <a href="/Matches?sortParam=date_desc">@Html.DisplayNameFor(model => model.Date)</a>
+                }
+                else
+                {
+                    <a href="/Matches?sortParam=date_asc">@Html.DisplayNameFor(model => model.Date)</a>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.AwayTeam)
+                @if (ViewBag.sortBy == "away_asc")
+                {
+                    <a href="/Matches?sortParam=away_desc">@Html.DisplayNameFor(model => model.AwayTeam)</a>
+                }
+                else
+                {
+                    <a href="/Matches?sortParam=away_asc">@Html.DisplayNameFor(model => model.AwayTeam)</a>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HomeTeam)
+                @if (ViewBag.sortBy == "home_asc")
+                {
+                    <a href="/Matches?sortParam=home_desc">@Html.DisplayNameFor(model => model.HomeTeam)</a>
+                }
+                else
+                {
+                    <a href="/Matches?sortParam=home_asc">@Html.DisplayNameFor(model => model.HomeTeam)</a>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.League)
+                @if (ViewBag.sortBy == "leag_asc")
+                {
+                    <a href="/Matches?sortParam=leag_desc">@Html.DisplayNameFor(model => model.League)</a>
+                }
+                else
+                {
+                    <a href="/Matches?sortParam=leag_asc">@Html.DisplayNameFor(model => model.League)</a>
+                }
             </th>
             <th></th>
         </tr>

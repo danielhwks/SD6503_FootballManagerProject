@@ -19,10 +19,57 @@ namespace FootballStatisticsManagementApp.Controllers
         }
 
         // GET: Matches
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortParam)
         {
-            var hSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext = _context.Match.Include(m => m.AwayTeam).Include(m => m.HomeTeam).Include(m => m.League);
-            return View(await hSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext.ToListAsync());
+            var matches = from m in _context.Match.Include(m => m.AwayTeam).Include(m => m.HomeTeam).Include(m => m.League) select m;
+
+            switch (sortParam)
+            {
+                case "loc_asc":
+                    matches = matches.OrderBy(m => m.Location);
+                    ViewBag.sortBy = "loc_asc";
+                    break;
+                case "loc_desc":
+                    matches = matches.OrderByDescending(m => m.Location);
+                    ViewBag.sortBy = "loc_desc";
+                    break;
+                case "date_asc":
+                    matches = matches.OrderBy(m => m.Date);
+                    ViewBag.sortBy = "date_asc";
+                    break;
+                case "date_desc":
+                    matches = matches.OrderByDescending(m => m.Date);
+                    ViewBag.sortBy = "date_desc";
+                    break;
+                case "away_asc":
+                    matches = matches.OrderBy(m => m.AwayTeam);
+                    ViewBag.sortBy = "away_asc";
+                    break;
+                case "away_desc":
+                    matches = matches.OrderByDescending(m => m.AwayTeam);
+                    ViewBag.sortBy = "away_desc";
+                    break;
+                case "home_asc":
+                    matches = matches.OrderBy(m => m.HomeTeam);
+                    ViewBag.sortBy = "home_asc";
+                    break;
+                case "home_desc":
+                    matches = matches.OrderByDescending(m => m.HomeTeam);
+                    ViewBag.sortBy = "home_desc";
+                    break;
+                case "leag_asc":
+                    matches = matches.OrderBy(m => m.League);
+                    ViewBag.sortBy = "leag_asc";
+                    break;
+                case "leag_desc":
+                    matches = matches.OrderByDescending(m => m.League);
+                    ViewBag.sortBy = "leag_desc";
+                    break;
+                default:
+                    break;
+            }
+
+            return View(await matches.ToListAsync());
         }
 
         // GET: Matches/Details/5
