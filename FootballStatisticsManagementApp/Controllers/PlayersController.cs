@@ -24,12 +24,7 @@ namespace FootballStatisticsManagementApp.Controllers
             var players = from p in _context.Player.Include(p => p.Team) select p;
             if (!String.IsNullOrEmpty(searchParam))
             {
-                Console.WriteLine("SEARCHING");
                 players = players.Where(p => p.Name.Contains(searchParam));
-            }
-            else
-            {
-                Console.WriteLine(searchParam);
             }
             switch (sortParam)
             {
