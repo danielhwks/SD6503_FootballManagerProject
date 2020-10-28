@@ -13,16 +13,44 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                @if (ViewBag.sortBy == "name_asc")
+                {
+                    <a href="/Players?sortParam=name_desc">@Html.DisplayNameFor(model => model.Name)</a>
+                }
+                else
+                {
+                    <a href="/Players?sortParam=name_asc">@Html.DisplayNameFor(model => model.Name)</a>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Dob)
+                @if (ViewBag.sortBy == "dob_asc")
+                {
+                    <a href="/Players?sortParam=dob_desc">@Html.DisplayNameFor(model => model.Dob)</a>
+                }
+                else
+                {
+                    <a href="/Players?sortParam=dob_asc">@Html.DisplayNameFor(model => model.Dob)</a>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.KitNumber)
+                @if (ViewBag.sortBy == "kit_asc")
+                {
+                    <a href="/Players?sortParam=kit_desc">@Html.DisplayNameFor(model => model.KitNumber)</a>
+                }
+                else
+                {
+                    <a href="/Players?sortParam=kit_asc">@Html.DisplayNameFor(model => model.KitNumber)</a>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Team)
+                @if (ViewBag.sortBy == "team_asc")
+                {
+                    <a href="/Players?sortParam=team_desc">@Html.DisplayNameFor(model => model.Team)</a>
+                }
+                else
+                {
+                    <a href="/Players?sortParam=team_asc">@Html.DisplayNameFor(model => model.Team)</a>
+                }
             </th>
             <th></th>
         </tr>

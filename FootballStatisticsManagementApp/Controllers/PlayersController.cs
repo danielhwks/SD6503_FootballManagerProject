@@ -24,10 +24,41 @@ namespace FootballStatisticsManagementApp.Controllers
             var players = from p in _context.Player.Include(p => p.Team) select p;
             switch (sortParam)
             {
+                case "name_asc":
+                    players = players.OrderBy(p => p.Name);
+                    ViewBag.sortBy = "name_asc";
+                    break;
                 case "name_desc":
                     players = players.OrderByDescending(p => p.Name);
+                    ViewBag.sortBy = "name_desc";
+                    break;
+                case "dob_asc":
+                    players = players.OrderBy(p => p.Dob);
+                    ViewBag.sortBy = "dob_asc";
+                    break;
+                case "dob_desc":
+                    players = players.OrderByDescending(p => p.Dob);
+                    ViewBag.sortBy = "dob_desc";
+                    break;
+                case "kit_asc":
+                    players = players.OrderBy(p => p.KitNumber);
+                    ViewBag.sortBy = "kit_asc";
+                    break;
+                case "kit_desc":
+                    players = players.OrderByDescending(p => p.KitNumber);
+                    ViewBag.sortBy = "kit_desc";
+                    break;
+                case "team_asc":
+                    players = players.OrderBy(p => p.Team);
+                    ViewBag.sortBy = "team_asc";
+                    break;
+                case "team_desc":
+                    players = players.OrderByDescending(p => p.Team);
+                    ViewBag.sortBy = "team_desc";
                     break;
                 default:
+                    players = players.OrderBy(p => p.Name);
+                    ViewBag.sortBy = "name_asc";
                     break;
             }
             return View(await players.ToListAsync());
