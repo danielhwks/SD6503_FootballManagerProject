@@ -13,7 +13,14 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Year)
+                @if (ViewBag.sortBy == "year_asc")
+                {
+                    <a href="/Leagues?sortParam=year_desc">@Html.DisplayNameFor(model => model.Year)</a>
+                }
+                else
+                {
+                    <a href="/Leagues?sortParam=year_asc">@Html.DisplayNameFor(model => model.Year)</a>
+                }
             </th>
             <th></th>
         </tr>

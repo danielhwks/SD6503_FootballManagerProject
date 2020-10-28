@@ -19,9 +19,25 @@ namespace FootballStatisticsManagementApp.Controllers
         }
 
         // GET: Leagues
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortParam)
         {
-            return View(await _context.League.ToListAsync());
+            var leagues = from l in _context.League select l;
+
+            switch (sortParam)
+            {
+                case "year_asc":
+                    leagues = leagues.OrderBy(l => l.Year);
+                    ViewBag.sortBy = "year_asc";
+                    break;
+                case "year_desc":
+                    leagues = leagues.OrderByDescending(l => l.Year);
+                    ViewBag.sortBy = "year_desc";
+                    break;
+                default:
+                    break;
+            }
+
+            return View(await leagues.ToListAsync());
         }
 
         // GET: Leagues/Details/5
