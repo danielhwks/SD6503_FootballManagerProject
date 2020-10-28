@@ -19,9 +19,33 @@ namespace FootballStatisticsManagementApp.Controllers
         }
 
         // GET: Teams
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortParam)
         {
-            return View(await _context.Team.ToListAsync());
+            var teams = from t in _context.Team select t;
+
+            switch (sortParam)
+            {
+                case "name_asc":
+                    teams = teams.OrderBy(t => t.Name);
+                    ViewBag.sortBy = "name_asc";
+                    break;
+                case "name_desc":
+                    teams = teams.OrderByDescending(t => t.Name);
+                    ViewBag.sortBy = "name_desc";
+                    break;
+                case "loc_asc":
+                    teams = teams.OrderBy(t => t.Location);
+                    ViewBag.sortBy = "loc_asc";
+                    break;
+                case "loc_desc":
+                    teams = teams.OrderByDescending(t => t.Location);
+                    ViewBag.sortBy = "loc_desc";
+                    break;
+                default:
+                    break;
+            }
+
+            return View(await teams.ToListAsync());
         }
 
         // GET: Teams/Details/5
