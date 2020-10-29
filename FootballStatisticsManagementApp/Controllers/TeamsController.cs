@@ -167,6 +167,7 @@ namespace FootballStatisticsManagementApp.Controllers
         {
             var team = await _context.Team.FindAsync(id);
             _context.Match.RemoveRange(_context.Match.Where(m => m.AwayTeam == team || m.HomeTeam == team));
+            _context.Player.RemoveRange(_context.Player.Where(p => p.Team == team));
             _context.Team.Remove(team);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
