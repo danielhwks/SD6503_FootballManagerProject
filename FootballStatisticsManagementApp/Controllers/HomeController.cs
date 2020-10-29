@@ -23,14 +23,24 @@ namespace FootballStatisticsManagementApp.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            if (!LoginUtility.CheckAuthenticated(HttpContext.Session))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            ViewData["Message"] = "MicroManage your teams";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            if (!LoginUtility.CheckAuthenticated(HttpContext.Session))
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            ViewData["Message"] = "Address";
 
             return View();
         }
