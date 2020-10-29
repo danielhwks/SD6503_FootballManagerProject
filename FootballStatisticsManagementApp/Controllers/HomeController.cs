@@ -47,11 +47,6 @@ namespace FootballStatisticsManagementApp.Controllers
 
         public IActionResult Privacy()
         {
-            if (!LoginUtility.CheckAuthenticated(HttpContext.Session))
-            {
-                return RedirectToAction("Index", "Login");
-            }
-
             return View();
         }
 
