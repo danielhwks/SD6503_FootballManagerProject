@@ -19,10 +19,13 @@ namespace FootballStatisticsManagementApp.Controllers
         }
 
         // GET: Matches
-        public async Task<IActionResult> Index(string sortParam)
+        public async Task<IActionResult> Index(string sortParam, string searchParam)
         {
             var matches = from m in _context.Match.Include(m => m.AwayTeam).Include(m => m.HomeTeam).Include(m => m.League) select m;
-
+            if (!String.IsNullOrEmpty(searchParam))
+            {
+                matches = matches.Where(m => m.Location.Contains(searchParam));
+            }
             switch (sortParam)
             {
                 case "loc_asc":
