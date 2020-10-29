@@ -166,6 +166,7 @@ namespace FootballStatisticsManagementApp.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var team = await _context.Team.FindAsync(id);
+            _context.Match.RemoveRange(_context.Match.Where(m => m.AwayTeam == team || m.HomeTeam == team));
             _context.Team.Remove(team);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
