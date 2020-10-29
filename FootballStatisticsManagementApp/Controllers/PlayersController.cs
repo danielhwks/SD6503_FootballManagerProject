@@ -19,7 +19,7 @@ namespace FootballStatisticsManagementApp.Controllers
         }
 
         // GET: Players
-        public async Task<IActionResult> Index(string sortParam, string searchParam)
+        public async Task<IActionResult> Index(string sortParam = "", string searchParam = "")
         {
             var players = from p in _context.Player.Include(p => p.Team) select p;
             if (!String.IsNullOrEmpty(searchParam))

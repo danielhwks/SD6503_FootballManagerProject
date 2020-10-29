@@ -19,7 +19,7 @@ namespace FootballStatisticsManagementApp.Controllers
         }
 
         // GET: Teams
-        public async Task<IActionResult> Index(string sortParam, string searchParam)
+        public async Task<IActionResult> Index(string sortParam = "", string searchParam = "")
         {
             var teams = from t in _context.Team select t;
             if (!String.IsNullOrEmpty(searchParam))
