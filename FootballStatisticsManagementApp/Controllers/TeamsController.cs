@@ -19,10 +19,13 @@ namespace FootballStatisticsManagementApp.Controllers
         }
 
         // GET: Teams
-        public async Task<IActionResult> Index(string sortParam)
+        public async Task<IActionResult> Index(string sortParam, string searchParam)
         {
             var teams = from t in _context.Team select t;
-
+            if (!String.IsNullOrEmpty(searchParam))
+            {
+                teams = teams.Where(t => t.Name.Contains(searchParam));
+            }
             switch (sortParam)
             {
                 case "name_asc":
