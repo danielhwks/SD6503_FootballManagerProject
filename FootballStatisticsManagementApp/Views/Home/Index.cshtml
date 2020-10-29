@@ -75,3 +75,37 @@
             </p>
         </div>
     </div>
+    <div class="col-md-12">
+        <h2>Realtime Statistics</h2>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Top Players</div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Team</th>
+                        <th>Goals</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < ViewBag.topPlayers.Count; i++)
+                    {
+                        var stat = ViewBag.topPlayers[i];
+                        var playerName = stat.Item1.Name;
+                        var teamName = stat.Item2.Name;
+                        var totalGoals = stat.Item3;
+                    <tr>
+                        <td>1</td>
+                        <td>@playerName</td>
+                        <td>@teamName</td>
+                        <td>@totalGoals</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
