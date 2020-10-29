@@ -28,7 +28,7 @@ namespace FootballStatisticsManagementApp.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "MicroManage your teams";
 
             return View();
         }
@@ -40,7 +40,7 @@ namespace FootballStatisticsManagementApp.Controllers
                 return RedirectToAction("Index", "Login");
             }
 
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Address";
 
             return View();
         }
