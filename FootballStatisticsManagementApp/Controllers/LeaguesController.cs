@@ -19,10 +19,13 @@ namespace FootballStatisticsManagementApp.Controllers
         }
 
         // GET: Leagues
-        public async Task<IActionResult> Index(string sortParam)
+        public async Task<IActionResult> Index(string sortParam, string searchParam)
         {
             var leagues = from l in _context.League select l;
-
+            if (!String.IsNullOrEmpty(searchParam))
+            {
+                leagues = leagues.Where(l => l.Year.Contains(searchParam));
+            }
             switch (sortParam)
             {
                 case "year_asc":
