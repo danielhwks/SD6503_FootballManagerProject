@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docker", "Docker", "{D817A3
 		pumascan.sh = pumascan.sh
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballStatisticsManagementApp", "..\SD6503_Project\FootballStatisticsManagementApp\FootballStatisticsManagementApp.csproj", "{2F0E3D81-1369-466D-ADE9-59CAA4A081BF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootballStatisticsManagementApp", "..\FootballStatisticsManagementApp\FootballStatisticsManagementApp.csproj", "{E72A25E7-E9C3-4F5E-9792-99876B12C87D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,10 +43,10 @@ Global
 		{D5AED582-DD4A-46A6-B6B7-27F094D87C47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D5AED582-DD4A-46A6-B6B7-27F094D87C47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D5AED582-DD4A-46A6-B6B7-27F094D87C47}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2F0E3D81-1369-466D-ADE9-59CAA4A081BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2F0E3D81-1369-466D-ADE9-59CAA4A081BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2F0E3D81-1369-466D-ADE9-59CAA4A081BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2F0E3D81-1369-466D-ADE9-59CAA4A081BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E72A25E7-E9C3-4F5E-9792-99876B12C87D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E72A25E7-E9C3-4F5E-9792-99876B12C87D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E72A25E7-E9C3-4F5E-9792-99876B12C87D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E72A25E7-E9C3-4F5E-9792-99876B12C87D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
