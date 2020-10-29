@@ -50,8 +50,8 @@
     </div>
     <div class="col-md-4">
         <div class="panel panel-default">
-            <div class="panel-body" 
-                 style="color: dodgerblue; text-align: center; margin-bottom: 0" 
+            <div class="panel-body"
+                 style="color: dodgerblue; text-align: center; margin-bottom: 0"
                  size="20">
                 Know how well your team is doing
             </div>
@@ -59,8 +59,8 @@
     </div>
     <div class="col-md-4">
         <div class="panel panel-default">
-            <p class="panel-body" 
-               style="color: dodgerblue; text-align: center; margin-bottom: 0" 
+            <p class="panel-body"
+               style="color: dodgerblue; text-align: center; margin-bottom: 0"
                size="20">
                 Understand the Opposition
             </p>
@@ -68,8 +68,8 @@
     </div>
     <div class="col-md-4">
         <div class="panel panel-default">
-            <p class="panel-body" 
-               style="color: dodgerblue; text-align: center; margin-bottom: 0" 
+            <p class="panel-body"
+               style="color: dodgerblue; text-align: center; margin-bottom: 0"
                size="20">
                 Know your stats
             </p>
@@ -97,12 +97,39 @@
                         var playerName = stat.Item1.Name;
                         var teamName = stat.Item2.Name;
                         var totalGoals = stat.Item3;
+                        <tr>
+                            <td>1</td>
+                            <td>@playerName</td>
+                            <td>@teamName</td>
+                            <td>@totalGoals</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">Top Teams</div>
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>1</td>
-                        <td>@playerName</td>
-                        <td>@teamName</td>
-                        <td>@totalGoals</td>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Goals</th>
                     </tr>
+                </thead>
+                <tbody>
+                    @for (var i = 0; i < ViewBag.topTeams.Count; i++)
+                    {
+                        var stat = ViewBag.topTeams[i];
+                        var teamName = stat.Item1.Name;
+                        var totalGoals = stat.Item2;
+                        <tr>
+                            <td>1</td>
+                            <td>@teamName</td>
+                            <td>@totalGoals</td>
+                        </tr>
                     }
                 </tbody>
             </table>

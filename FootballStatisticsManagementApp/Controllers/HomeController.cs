@@ -27,19 +27,32 @@ namespace FootballStatisticsManagementApp.Controllers
 
             var _ = _context.Stats.ToList();
             var _2 = _context.Team.ToList();
+
+            // Fetch the players with the most goals
             var stats = _context.Stats.Include(s => s.Player.Team)
                 .GroupBy(i => i.Player)
                 .Select(g => new { Player = g.Key, Team = g.Key.Team, Total = g.Sum(j => j.Goals) })
                 .OrderByDescending(g => g.Total).Take(3);
-
-            //ViewBag.topPlayers = stats.ToList();
+            
             List<(Player, Team, int)> realStats = new List<(Player, Team, int)>();
             foreach (var stat in stats.ToList())
             {
                 realStats.Add((stat.Player, stat.Team, (int)stat.Total));
             }
-
             ViewBag.topPlayers = realStats.ToList();
+
+            // Fetch the teams with the most goals
+            var teamStats = _context.Stats.Include(s => s.Player).Include(s => s.Player.Team)
+                .GroupBy(i => i.Player.Team)
+                .Select(g => new { Team = g.Key, Total = g.Sum(j => j.Player.Stats.Sum(k => k.Goals)) })
+                .OrderByDescending(g => g.Total).Take(3);
+
+            List<(Team, int)> realTeamStats = new List<(Team, int)>();
+            foreach (var stat in teamStats.ToList())
+            {
+                realTeamStats.Add((stat.Team, (int)stat.Total));
+            }
+            ViewBag.topTeams = realTeamStats.ToList();
 
             foreach (var stat in realStats)
             {
