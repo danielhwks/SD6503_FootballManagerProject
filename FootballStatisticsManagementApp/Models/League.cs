@@ -11,10 +11,12 @@ namespace FootballStatisticsManagementApp.Models
             Match = new HashSet<Match>();
         }
 
+        // Validate that the input passes the regex check
         [Required]
         [RegularExpression("^[0-9]+$",ErrorMessage = "Must input numbers in field")]
         public int LeagueId { get; set; }
 
+        // Validate that the input passes the regex check
         [Required]
         [RegularExpression("^[0-9]+$", ErrorMessage = "Incorrect data in field")]
         [StringLength(4, MinimumLength = 4, ErrorMessage = "Year must be four digits long")]

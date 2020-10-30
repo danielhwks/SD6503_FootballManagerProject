@@ -15,10 +15,12 @@ namespace FootballStatisticsManagementApp.Models
 
         public int TeamId { get; set; }
 
+        // Validate that the input passes the regex check
         [Required]
         [RegularExpression("^[a-zA-Z\\s]+$", ErrorMessage = "Name can only include letters")]
         public string Name { get; set; }
 
+        // Validate that the input passes the regex check
         [Required]
         [RegularExpression("^[a-zA-Z\\s]+$", ErrorMessage = "Location can only include letters")]
         public string Location { get; set; }

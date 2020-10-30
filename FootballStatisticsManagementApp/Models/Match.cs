@@ -13,10 +13,12 @@ namespace FootballStatisticsManagementApp.Models
 
         public int MatchId { get; set; }
 
+        // Validate that the input passes the regex check
         [Required]
         [RegularExpression("^[a-zA-Z\\s]+$", ErrorMessage = "Only letters to be inputed")]
         public string Location { get; set; }
 
+        // Validate that the input passes the regex check
         [Required]
         [RegularExpression(@"^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^
                           (?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$
