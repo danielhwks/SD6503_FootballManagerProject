@@ -79,5 +79,23 @@ namespace Tests
             //});
             //databaseContext.SaveChanges();
         }
+
+        [Test]
+        public void CheckFunctionCreate()
+        {
+            var preCountTask = databaseContext.League.CountAsync();
+            preCountTask.Wait();
+            int preCount = preCountTask.Result;
+            LeaguesController controller = new LeaguesController(databaseContext);
+            League l = new League();
+            l.Year = "2007";
+            var resultTask = controller.Create(l);
+            resultTask.Wait();
+            IActionResult result = resultTask.Result as IActionResult;
+            var postCountTask = databaseContext.League.CountAsync();
+            postCountTask.Wait();
+            int postCount = postCountTask.Result;
+            Assert.AreEqual(preCount+1, postCount);
+        }
     }
 }
