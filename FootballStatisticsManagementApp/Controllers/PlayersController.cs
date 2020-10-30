@@ -21,11 +21,16 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Players
         public async Task<IActionResult> Index(string sortParam = "", string searchParam = "")
         {
+            // Fetches all Player objects from the database
             var players = from p in _context.Player.Include(p => p.Team) select p;
+
+            // If the user has searched then filter the objects
             if (!String.IsNullOrEmpty(searchParam))
             {
                 players = players.Where(p => p.Name.Contains(searchParam));
             }
+
+            // If the user has sorted then sort the objects by the selected field
             switch (sortParam)
             {
                 case "name_asc":
@@ -65,12 +70,15 @@ namespace FootballStatisticsManagementApp.Controllers
                     ViewBag.sortBy = "name_asc";
                     break;
             }
+
+            // Returned the remaining objects
             return View(await players.ToListAsync());
         }
 
         // GET: Players/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            // Shows the details of the object
             if (id == null)
             {
                 return NotFound();
@@ -85,10 +93,8 @@ namespace FootballStatisticsManagementApp.Controllers
             }
             var _ = _context.Stats.Where(s => s.PlayerId == player.PlayerId).ToList();
             ViewBag.goals = player.Stats.Sum(s => s.Goals);
-            //Console.WriteLine(stats.Count);
             ViewBag.assists = player.Stats.Sum(s => s.Assists);
             ViewBag.saves = player.Stats.Sum(s => s.Saves);
-            Console.WriteLine(ViewBag.goals);
 
             return View(player);
         }
@@ -96,6 +102,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Players/Create
         public IActionResult Create()
         {
+            // Returns the Create view of the object type
             ViewData["TeamId"] = new SelectList(_context.Team, "TeamId", "Name");
             return View();
         }
@@ -107,6 +114,7 @@ namespace FootballStatisticsManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("PlayerId,Name,Dob,KitNumber,TeamId")] Player player)
         {
+            // Validates and creates the object based on the given fields
             if (ModelState.IsValid)
             {
                 _context.Add(player);
@@ -120,6 +128,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Players/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            // Returns the Edit view of the object
             if (id == null)
             {
                 return NotFound();
@@ -141,6 +150,7 @@ namespace FootballStatisticsManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("PlayerId,Name,Dob,KitNumber,TeamId")] Player player)
         {
+            // Validates and edits the object
             if (id != player.PlayerId)
             {
                 return NotFound();
@@ -173,6 +183,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Players/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            // Returns the Delete view
             if (id == null)
             {
                 return NotFound();
@@ -194,6 +205,7 @@ namespace FootballStatisticsManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // Deletes the given object
             var player = await _context.Player.FindAsync(id);
             _context.Player.Remove(player);
             await _context.SaveChangesAsync();

@@ -21,11 +21,17 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Teams
         public async Task<IActionResult> Index(string sortParam = "", string searchParam = "")
         {
+
+            // Fetches all Team objects from the database
             var teams = from t in _context.Team select t;
+
+            // If the user has searched then filter the objects
             if (!String.IsNullOrEmpty(searchParam))
             {
                 teams = teams.Where(t => t.Name.Contains(searchParam));
             }
+
+            // If the user has sorted then sort the objects by the selected field
             switch (sortParam)
             {
                 case "name_asc":
@@ -48,12 +54,14 @@ namespace FootballStatisticsManagementApp.Controllers
                     break;
             }
 
+            // Returned the remaining objects
             return View(await teams.ToListAsync());
         }
 
         // GET: Teams/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            // Shows the details of the object
             if (id == null)
             {
                 return NotFound();
@@ -72,6 +80,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Teams/Create
         public IActionResult Create()
         {
+            // Returns the Create view of the object type
             return View();
         }
 
@@ -82,6 +91,7 @@ namespace FootballStatisticsManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TeamId,Name,Location")] Team team)
         {
+            // Validates and creates the object based on the given fields
             if (ModelState.IsValid)
             {
                 _context.Add(team);
@@ -94,6 +104,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Teams/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            // Returns the Edit view of the object
             if (id == null)
             {
                 return NotFound();
@@ -114,6 +125,7 @@ namespace FootballStatisticsManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TeamId,Name,Location")] Team team)
         {
+            // Validates and edits the object
             if (id != team.TeamId)
             {
                 return NotFound();
@@ -145,6 +157,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Teams/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            // Returns the Delete view
             if (id == null)
             {
                 return NotFound();
@@ -165,6 +178,7 @@ namespace FootballStatisticsManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // Deletes the given object
             var team = await _context.Team.FindAsync(id);
             _context.Match.RemoveRange(_context.Match.Where(m => m.AwayTeam == team || m.HomeTeam == team));
             _context.Player.RemoveRange(_context.Player.Where(p => p.Team == team));

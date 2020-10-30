@@ -27,6 +27,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Stats/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            // Shows the details of the object
             if (id == null)
             {
                 return NotFound();
@@ -45,6 +46,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Stats/Create
         public IActionResult Create()
         {
+            // Returns the Create view of the object type
             ViewData["MatchId"] = new SelectList(_context.Match, "MatchId", "Date");
             ViewData["PlayerId"] = new SelectList(_context.Player, "PlayerId", "Name");
             return View();
@@ -57,6 +59,7 @@ namespace FootballStatisticsManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("StatsId,Goals,Assists,Saves,MatchId,PlayerId")] Stats stats)
         {
+            // Validates and creates the object based on the given fields
             if (ModelState.IsValid)
             {
                 _context.Add(stats);
@@ -69,6 +72,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Stats/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            // Returns the Edit view of the object
             if (id == null)
             {
                 return NotFound();
@@ -91,6 +95,7 @@ namespace FootballStatisticsManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("StatsId,Goals,Assists,Saves,MatchId,PlayerId")] Stats stats)
         {
+            // Validates and edits the object
             if (id != stats.StatsId)
             {
                 return NotFound();
@@ -122,6 +127,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Stats/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            // Returns the Delete view
             if (id == null)
             {
                 return NotFound();
@@ -142,6 +148,7 @@ namespace FootballStatisticsManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // Deletes the given object
             var stats = await _context.Stats.FindAsync(id);
             _context.Stats.Remove(stats);
             await _context.SaveChangesAsync();

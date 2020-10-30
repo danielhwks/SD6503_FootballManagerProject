@@ -21,11 +21,16 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Matches
         public async Task<IActionResult> Index(string sortParam = "", string searchParam = "")
         {
+            // Fetches all Match objects from the database
             var matches = from m in _context.Match.Include(m => m.AwayTeam).Include(m => m.HomeTeam).Include(m => m.League) select m;
+
+            // If the user has searched then filter the objects
             if (!String.IsNullOrEmpty(searchParam))
             {
                 matches = matches.Where(m => m.Location.Contains(searchParam));
             }
+
+            // If the user has sorted then sort the objects by the selected field
             switch (sortParam)
             {
                 case "loc_asc":
@@ -72,12 +77,14 @@ namespace FootballStatisticsManagementApp.Controllers
                     break;
             }
 
+            // Returned the remaining objects
             return View(await matches.ToListAsync());
         }
 
         // GET: Matches/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            // Shows the details of the object
             if (id == null)
             {
                 return NotFound();
@@ -99,6 +106,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Matches/Create
         public IActionResult Create()
         {
+            // Returns the Create view of the object type
             ViewData["AwayTeamId"] = new SelectList(_context.Team, "TeamId", "Name");
             ViewData["HomeTeamId"] = new SelectList(_context.Team, "TeamId", "Name");
             ViewData["LeagueId"] = new SelectList(_context.League, "LeagueId", "Year");
@@ -112,6 +120,7 @@ namespace FootballStatisticsManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MatchId,Location,Date,LeagueId,HomeTeamId,AwayTeamId")] Match match)
         {
+            // Validates and creates the object based on the given fields
             if (ModelState.IsValid)
             {
                 _context.Add(match);
@@ -127,6 +136,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Matches/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            // Returns the Edit view of the object
             if (id == null)
             {
                 return NotFound();
@@ -150,6 +160,7 @@ namespace FootballStatisticsManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("MatchId,Location,Date,LeagueId,HomeTeamId,AwayTeamId")] Match match)
         {
+            // Validates and edits the object
             if (id != match.MatchId)
             {
                 return NotFound();
@@ -184,6 +195,7 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Matches/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            // Returns the Delete view
             if (id == null)
             {
                 return NotFound();
@@ -207,6 +219,7 @@ namespace FootballStatisticsManagementApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // Deletes the given object
             var match = await _context.Match.FindAsync(id);
             _context.Match.Remove(match);
             await _context.SaveChangesAsync();
