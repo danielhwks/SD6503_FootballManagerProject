@@ -19,9 +19,63 @@ namespace FootballStatisticsManagementApp.Controllers
         }
 
         // GET: Stats
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortParam = "", string searchParam = "")
         {
-            var stats = _context.Stats.Include(s => s.Player).Include(s => s.Match);
+            var stats = from p in _context.Stats.Include(s => s.Player).Include(s => s.Match) select p;
+
+            // If the user has searched then filter the objects
+            if (!String.IsNullOrEmpty(searchParam))
+            {
+                stats = stats.Where(t => t.Player.Name.Contains(searchParam));
+            }
+
+            // If the user has sorted then sort the objects by the selected field
+            switch (sortParam)
+            {
+                case "goals_asc":
+                    stats = stats.OrderBy(t => t.Goals);
+                    ViewBag.sortBy = "goals_asc";
+                    break;
+                case "goals_desc":
+                    stats = stats.OrderByDescending(t => t.Goals);
+                    ViewBag.sortBy = "goals_desc";
+                    break;
+                case "assists_asc":
+                    stats = stats.OrderBy(t => t.Assists);
+                    ViewBag.sortBy = "assists_asc";
+                    break;
+                case "assists_desc":
+                    stats = stats.OrderByDescending(t => t.Assists);
+                    ViewBag.sortBy = "assists_desc";
+                    break;
+                case "saves_asc":
+                    stats = stats.OrderBy(t => t.Saves);
+                    ViewBag.sortBy = "saves_asc";
+                    break;
+                case "saves_desc":
+                    stats = stats.OrderByDescending(t => t.Saves);
+                    ViewBag.sortBy = "saves_desc";
+                    break;
+                case "name_asc":
+                    stats = stats.OrderBy(t => t.Player);
+                    ViewBag.sortBy = "name_asc";
+                    break;
+                case "name_desc":
+                    stats = stats.OrderByDescending(t => t.Player);
+                    ViewBag.sortBy = "name_desc";
+                    break;
+                case "date_asc":
+                    stats = stats.OrderBy(t => t.Match);
+                    ViewBag.sortBy = "date_asc";
+                    break;
+                case "date_desc":
+                    stats = stats.OrderByDescending(t => t.Match);
+                    ViewBag.sortBy = "date_desc";
+                    break;
+                default:
+                    break;
+            }
+
             return View(await stats.ToListAsync());
         }
 

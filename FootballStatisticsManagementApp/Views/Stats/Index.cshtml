@@ -9,23 +9,66 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-controller="Stats" asp-action="Index">
+    <p>
+        Name: <input type="text" name="SearchParam" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Goals)
+                @if (ViewBag.sortBy == "goals_asc")
+                {
+                    <a href="/Stats?sortParam=goals_desc">@Html.DisplayNameFor(model => model.Goals)</a>
+                }
+                else
+                {
+                    <a href="/Stats?sortParam=goals_asc">@Html.DisplayNameFor(model => model.Goals)</a>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Assists)
+                @if (ViewBag.sortBy == "assists_asc")
+                {
+                    <a href="/Stats?sortParam=assists_desc">@Html.DisplayNameFor(model => model.Assists)</a>
+                }
+                else
+                {
+                    <a href="/Stats?sortParam=assists_asc">@Html.DisplayNameFor(model => model.Assists)</a>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Saves)
+                @if (ViewBag.sortBy == "saves_asc")
+                {
+                    <a href="/Stats?sortParam=saves_desc">@Html.DisplayNameFor(model => model.Saves)</a>
+                }
+                else
+                {
+                    <a href="/Stats?sortParam=saves_asc">@Html.DisplayNameFor(model => model.Saves)</a>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Player)
+                @if (ViewBag.sortBy == "name_asc")
+                {
+                    <a href="/Stats?sortParam=name_desc">@Html.DisplayNameFor(model => model.Player)</a>
+                }
+                else
+                {
+                    <a href="/Stats?sortParam=name_asc">@Html.DisplayNameFor(model => model.Player)</a>
+                }
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Match)
+                @if (ViewBag.sortBy == "date_asc")
+                {
+                    <a href="/Stats?sortParam=date_desc">@Html.DisplayNameFor(model => model.Match)</a>
+                }
+                else
+                {
+                    <a href="/Stats?sortParam=date_asc">@Html.DisplayNameFor(model => model.Match)</a>
+                }
             </th>
             <th></th>
         </tr>
