@@ -14,6 +14,8 @@ namespace Tests
         [SetUp]
         public void Setup()
         {
+            // Creates a new database context in memory for each test, this ensures that nothing is kept
+            //  between tests that could interfere with the testing or give incorrent results.
             var options = new DbContextOptionsBuilder<HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString()).Options;
             databaseContext = new HSD6503_ProjectSD6503_Project_DBDatabaseFSMDBmdfContext(options);

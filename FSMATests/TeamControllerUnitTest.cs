@@ -43,7 +43,7 @@ namespace Tests
             // Create the Team controller
             TeamsController controller = new TeamsController(databaseContext);
 
-            // Call the Index page and wait for a response
+            // Call the Details page and wait for a response
             var resultTask = controller.Details(1);
             resultTask.Wait();
             IActionResult result = resultTask.Result as IActionResult;
@@ -58,7 +58,7 @@ namespace Tests
             // Create the Team controller
             TeamsController controller = new TeamsController(databaseContext);
 
-            // Call the Index page
+            // Call the Create page
             IActionResult result = controller.Create() as IActionResult;
 
             // Check that the controller returned a valid response
@@ -71,7 +71,7 @@ namespace Tests
             // Create the Team controller
             TeamsController controller = new TeamsController(databaseContext);
 
-            // Call the Index page and wait for a response
+            // Call the Edit page and wait for a response
             var resultTask = controller.Edit(1);
             resultTask.Wait();
             IActionResult result = resultTask.Result as IActionResult;
@@ -86,7 +86,7 @@ namespace Tests
             // Create the Team controller
             TeamsController controller = new TeamsController(databaseContext);
 
-            // Call the Index page and wait for a response
+            // Call the Delete page and wait for a response
             var resultTask = controller.Delete(1);
             resultTask.Wait();
             IActionResult result = resultTask.Result as IActionResult;
