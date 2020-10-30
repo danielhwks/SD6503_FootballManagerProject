@@ -21,7 +21,8 @@ namespace FootballStatisticsManagementApp.Controllers
         // GET: Stats
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Stats.ToListAsync());
+            var stats = _context.Stats.Include(s => s.Player).Include(s => s.Match);
+            return View(await stats.ToListAsync());
         }
 
         // GET: Stats/Details/5
